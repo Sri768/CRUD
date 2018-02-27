@@ -1,0 +1,26 @@
+<?php
+	class Mahasiswa_m extends CI_Model{
+		public function get(){
+			$sql="SELECT * FROM mahasiswa";
+			return $this->db->query($sql);
+		}
+		
+		public function add($data){
+			$this->db->insert('mahasiswa',$data);
+		}
+		public function getByNim($nimnya){
+			$sql ="SELECT * FROM mahasiswa WHERE `nim`= '$nimnya' ";
+			return $this->db->query($sql);
+		}
+		
+		public function ubah($data){
+			$this->db->where('nim',$data['nim']);
+			$this->db->update('mahasiswa',$data);
+		}
+		
+		public function hapus($data){
+			$this->db->where('nim',$data);
+			$this->db->delete('mahasiswa');
+		}
+	}
+?>
