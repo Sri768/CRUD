@@ -1,0 +1,26 @@
+<h1> Data Mahasiswa Diploma </h1>
+<hr>
+<table border="1">
+<tr>
+	<th width="20px">NIM</th>
+	<th width="50px">NAMA</th>
+	<th width="15px">KELAS</th>
+	<th width="40px">AKSI</th>
+</tr>
+ <?php
+	foreach($data as $mahasiswa){
+?>
+<tr>
+		<td><?php echo $mahasiswa['nim'];?></td>
+		<td><?php echo $mahasiswa['nama'];?></td>
+		<td><?php echo $mahasiswa['kelas'];?></td>
+		<td><?php echo "<a href='".base_url("CobaCrud/ubah") ."/".$mahasiswa['nim']."'>update</a>";?></td>
+		<td><?php echo "<a href='".base_url("CobaCrud/hapus") ."/".$mahasiswa['nim']."'>hapus</a>";?></td>
+</tr>
+<?php
+	}
+?>
+</table>
+<br>
+
+<a href="<?php echo base_url("CobaCrud/tambah");?>" >Tambah Data</a>
