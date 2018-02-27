@@ -1,0 +1,56 @@
+<?php 
+class CobaCrud extends CI_Controller{
+	public function __construct(){
+		parent::__construct();
+		$this->load->model('Mahasiswa_m');
+	}
+	
+	public function index(){
+		$result = $this->Mahasiswa_m->get()->result_array();   
+		//result = pengembalian dalam bentuk obejek 
+		//result_array =pengembalian dalam bentuk array
+		//var_dump($data); //untuk melihat data yang diambil
+		$data['data']= $result;
+		$this->load->view('mahasiswa_v',$data);
+	}	
+	
+	public function tambah(){
+		$submit =$this->input->post("submit");
+		
+		if(!ISSET($submit)){
+		$this->load->view('tambahMahasiswa_v');
+		}else{
+			//echo "simpan";
+			$data['nim'] = $this->input->post("nim");
+			$data['nama'] =$this->input->post("nama");
+			$data['kelas']=$this->input->post("kelas");
+			
+			$this->Mahasiswa_m->add($data);
+			
+			redirect(base_url("CobaCrud"));
+		}
+	}
+	public function ubah($nimubah='0'){
+		$submit =$this->input->post("submit");
+		
+		if(!ISSET($submit)){
+		$dakir=$this->Mahasiswa_m->getByNim($nimubah)->result_array();  //data yang diambil cuma satu
+		//var_dump($dakir);
+		$data['data']= $dakir;
+		$this->load->view('ubahMahasiswa_v',$data);
+		}else{
+			$data['nim'] = $this->input->post("nim");
+			$data['nama'] =$this->input->post("nama");
+			$data['kelas']=$this->input->post("kelas");
+			//print_r($data);
+			$this->Mahasiswa_m->ubah($data);
+			redirect(base_url("CobaCrud"));
+		}
+	}
+	
+	public function hapus($nimhapus){
+		$this->Mahasiswa_m->hapus($nimhapus);
+		redirect(base_url("CobaCrud"));
+	}
+}
+?>
